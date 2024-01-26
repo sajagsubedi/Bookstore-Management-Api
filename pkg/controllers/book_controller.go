@@ -1,6 +1,7 @@
 package controllers
 
 import(
+  "fmt"
   "github.com/sajagsubedi/Bookstore-Management-Api/pkg/models"
   "github.com/sajagsubedi/Bookstore-Management-Api/pkg/utils"
   "encoding/json"
@@ -10,10 +11,11 @@ import(
 )
 
 func GetAllBooks(w http.ResponseWriter, r *http.Request) {
+  fmt.Println("Request for api")
   var books []models.Book
   books = models.GetBooks()
   res, _ := json.Marshal(books)
-  w.Header().Set("Content-Type", "pkglication/json")
+  w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
   w.Write(res)
 }
@@ -27,17 +29,22 @@ func GetBookByID(w http.ResponseWriter, r *http.Request) {
   }
   book,_:=models.GetBookById(ID)
   res,_ := json.Marshal(book)
-  w.Header().Set("Content-Type", "pkglication/json")
+  w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
   w.Write(res)
 }
 
-func CreateBook(w http.ResponseWriter,r *http.Request) {
+func AddBook(w http.ResponseWriter,r *http.Request) {
+  fmt.Println("Add request")
   bookData := &models.Book{}
   utils.ParseBody(r, bookData)
+  fmt.Println("R",r)
+  fmt.Println("bookdata",bookData)
   b := bookData.CreateBook()
+  fmt.Println("book",b)
   res,_ := json.Marshal(b)
-  w.Header().Set("Content-Type", "pkglication/json")
+  fmt.Println(res)
+  w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
   w.Write(res)
 
@@ -52,7 +59,7 @@ func DeleteBook(w http.ResponseWriter, r *http.Request) {
   }
   book = models.DeleteBookById(ID)
   res,_ := json.Marshal(book)
-  w.Header().Set("Content-Type", "pkglication/json")
+  w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
   w.Write(res)
 }
@@ -77,7 +84,7 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
   }
 db.Save(&bookDetails)
 res,_ :=json.Marshal(bookDetails)
- w.Header().Set("Content-Type", "pkglication/json")
+ w.Header().Set("Content-Type", "application/json")
   w.WriteHeader(http.StatusOK)
   w.Write(res)
   
