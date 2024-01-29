@@ -7,6 +7,9 @@ This API, written in Golang, serves as a bookstore management system with basic 
 
 - **cmd:** Contains the main application file.
 - **pkg:** Houses various subfolders for utilities, configuration, routing, models, and controllers.
+  
+  ###Folder Structure
+  
 - cmd
   - main.go
 - pkg
